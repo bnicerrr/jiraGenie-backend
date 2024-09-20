@@ -11,7 +11,6 @@ config();
 const app = express();
 const port = 3000;
 const llm_id = "anthropic.claude-3-5-sonnet-20240620-v1:0";
-const JIRA_BASE_URL = 'https://jiraent.cms.gov/rest/api/2/search?';
 
 // Define AWS configuration
 const aws_region = "us-east-1";
@@ -57,7 +56,7 @@ app.post("/api/jira", async (req, res) => {
   const { query } = req.body;
 
   try {
-    const response = await fetch(`${JIRA_BASE_URL}${query}`,{
+    const response = await fetch(`${process.env.JIRA_BASE_URL}${query}`,{
       headers: {
         Authorization: `Bearer ${process.env.JIRA_API_KEY}`,
       },
